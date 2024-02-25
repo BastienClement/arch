@@ -1,0 +1,18 @@
+# Maintainer: Bastien Clément <me@bclm.dev>
+pkgname=wsl-ssh
+pkgver=8.6p1
+pkgrel=1
+pkgdesc='Symlink for Windows OpenSSH'
+arch=('any')
+url='https://www.openssl.org/'
+license=('none')
+provides=('openssh=8.6p1')
+source=(ssh.sh)
+sha256sums=('7a4abec9dacfed6f0bd56c80b6552488debd8e855eea5c17edce0371bd3a68e7')
+
+package() {
+  install -D "ssh.sh" "$pkgdir/usr/bin/ssh"
+  for util in scp ssh-keygen ssh-keyscan; do
+    ln -s ssh "$pkgdir/usr/bin/$util"
+  done
+}
